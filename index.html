@@ -1,10 +1,126 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda Masjid Al-Qomroh</title>
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #001f3f;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: #003366;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        h2, h3 {
+            color: white;
+        }
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+            background: #004080;
+            color: white;
+        }
+        th, td {
+            border: 1px solid white;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-    <h1>Halo! Website berhasil di-host di GitHub Pages 🎉</h1>
-    <p>Silakan edit file ini untuk mengembangkan website.</p>
+    <h2>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيْمِ</h2>
+    <div class="container">
+        <h2>Agenda Masjid Al-Qomroh</h2>
+        
+        <h3>Jadwal Sholat</h3>
+        <table id="jadwal-sholat">
+            <tr><th>Tanggal</th><th>Waktu</th><th>Sholat</th></tr>
+        </table>
+        
+        <h3>Daily Quotes</h3>
+        <p id="daily_quote">Loading...</p>
+        
+        <h3>Jadwal Kajian</h3>
+        <table id="jadwal-kajian">
+            <tr><th>Hari</th><th>Tanggal</th><th>Waktu</th><th>Tema</th><th>Pengisi Kajian</th></tr>
+        </table>
+        
+        <h3>Ramadhan Reminder</h3>
+        <h3>Jadwal Imsak & Buka Puasa</h3>
+        <table id="jadwal-imsak">
+            <tr><th>Tanggal</th><th>Imsak</th><th>Buka Puasa</th></tr>
+        </table>
+        
+        <h3>Imam Sholat Tarawih</h3>
+        <table id="jadwal-imam-tarawih">
+            <tr><th>Tanggal</th><th>Nama Imam</th><th>Ayat Dibaca</th></tr>
+        </table>
+        
+        <h3>Alat Penghitung Zakat</h3>
+        <label for="penghasilan">Penghasilan per bulan: </label>
+        <input type="number" id="penghasilan" placeholder="Masukkan penghasilan">
+        <button onclick="hitungZakat()">Hitung Zakat</button>
+        <p id="hasil_zakat"></p>
+        
+        <h3>Salurkan Dana Terbaik untuk Operasional Masjid Al-Qomroh</h3>
+        <p>Infaq Operasional Dakwah:</p>
+        <p>BSI 7146280007 A/n Masjid Al-Qomroh</p>
+        
+        <p>Infaq Pembangunan Masjid:</p>
+        <p>BSI 8232111101 A/n Yayasan Menara Sunnah Citra Indah</p>
+        
+        <p>Admin Masjid Al-Qomroh: 0821 2392 8659</p>
+    </div>
+    
+    <script>
+        const quotes = [
+            "Sesungguhnya shalat itu mencegah dari perbuatan keji dan mungkar. (QS. Al-Ankabut: 45)",
+            "Barangsiapa beriman kepada Allah dan hari akhir, hendaklah ia berkata baik atau diam. (HR. Bukhari & Muslim)",
+            "Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia. (HR. Ahmad)"
+        ];
+        
+        function loadDailyQuote() {
+            const today = new Date().getDay();
+            document.getElementById('daily_quote').textContent = quotes[today % quotes.length];
+        }
+        
+        function loadJadwalKajian() {
+            const kajian = [
+                ["Rabu", "-", "Bakda Maghrib", "Tafsir Al-Qur'an", "Ustadz Ahmad"],
+                ["Sabtu Pagi", "-", "Bakda Subuh", "Hadits Shahih", "Ustadz Yusuf"],
+                ["Sabtu Sore", "-", "Bakda Maghrib", "Fiqh Ibadah", "Ustadz Hasan"],
+                ["Ahad Sore", "-", "Bakda Maghrib", "Aqidah Islam", "Ustadz Abdullah"]
+            ];
+            const table = document.getElementById('jadwal-kajian');
+            kajian.forEach(row => {
+                const tr = document.createElement('tr');
+                row.forEach(cell => {
+                    const td = document.createElement('td');
+                    td.textContent = cell;
+                    tr.appendChild(td);
+                });
+                table.appendChild(tr);
+            });
+        }
+        
+        function hitungZakat() {
+            let penghasilan = document.getElementById('penghasilan').value;
+            let zakat = penghasilan * 0.025;
+            document.getElementById('hasil_zakat').textContent = `Zakat yang harus dikeluarkan: Rp. ${zakat.toFixed(2)}`;
+        }
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            loadDailyQuote();
+            loadJadwalKajian();
+        });
+    </script>
 </body>
 </html>
